@@ -148,7 +148,8 @@ public class App {
         System.out.println("\n=== Tamanhos Teste Grande | Código 2 ===");
         System.out.println(retornoAlgoritmo(tamanhosTesteGrande, codigo2(tamanhosTesteGrande)));
 
-
+        System.out.println("\n=== Tamanhos Teste Médio | Código 3 ===");
+        System.out.println(retornoAlgoritmo(tamanhosTesteMedio, codigo2(tamanhosTesteMedio)));
 
     }
 }
