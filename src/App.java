@@ -41,6 +41,7 @@ public class App {
     static int codigo1(int[] vetor) {
         int resposta = 0;
         for (int i = 0; i < vetor.length; i += 2) {
+            operacoes++;
             resposta += vetor[i]%2;
         }
         return resposta;
@@ -56,6 +57,7 @@ public class App {
         for (int k = (vetor.length - 1); k > 0; k /= 2) {
             for (int i = 0; i <= k; i++) {
                 contador++;
+                operacoes++;
             }
 
         }
@@ -70,8 +72,10 @@ public class App {
         for (int i = 0; i < vetor.length - 1; i++) {
             int menor = i;
             for (int j = i + 1; j < vetor.length; j++) {
-                if (vetor[j] < vetor[menor])
+                operacoes++;
+                if (vetor[j] < vetor[menor]){
                     menor = j;
+                }
             }
             int temp = vetor[i];
             vetor[i] = vetor[menor];
@@ -85,6 +89,7 @@ public class App {
      * @return Um inteiro que significa...
      */
     static int codigo4(int n) {
+        operacoes++;
         if (n <= 2)
             return 1;
         else
@@ -104,7 +109,46 @@ public class App {
         return vetor;
         
     }
-    public static void main(String[] args) {
+
+    static String gerarStringDeArray(int[] vetor){
+        StringBuilder s = new StringBuilder();
+
+        for (int i = 0; i < vetor.length - 1; i++) {
+            s.append("\n" + vetor[i]);
+        }
+
+        return s.toString();
+    }
+
+    static String retornoAlgoritmo(int[] tamanhoTeste, int algoritmo){
+        StringBuilder s = new StringBuilder();
+        int[] vetorGerado;
         
+        for (int i = 0; i < tamanhoTeste.length - 1; i++) {
+            operacoes = 0;
+            long inicio = System.nanoTime();
+            vetorGerado = gerarVetor(tamanhoTeste[i]); // tamanho grande
+            algoritmo = codigo1(tamanhoTeste);
+            long fim = System.nanoTime();
+            double tempo = (fim - inicio);
+
+            s.append("\n" + "Tamanho: " + tamanhoTeste[i]);
+            s.append("\n" + "Tempo: " + tempo);
+            s.append("\n" + "Quantidade de operações: " + operacoes); // depende do tamanho do vetor
+            s.append("\n" + "-".repeat(10));
+            // s.append( ++i + ") " + "\n" + gerarStringDeArray(algoritmoAtual) + "\n" + algoritmo + "\n");
+        }
+return s.toString();
+
+    }
+    public static void main(String[] args) {
+        //operacoes = 0;
+        System.out.println(retornoAlgoritmo(tamanhosTesteGrande, codigo1(tamanhosTesteGrande)));
+        /* 
+        System.out.println("=".repeat(20));
+        System.out.println(retornoAlgoritmo(tamanhosTesteMedio, codigo1(tamanhosTesteMedio)));
+        System.out.println("=".repeat(20));
+        System.out.println(retornoAlgoritmo(tamanhosTestePequeno, codigo1(tamanhosTestePequeno)));
+        */
     }
 }
