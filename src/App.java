@@ -142,13 +142,13 @@ public class App {
 
     }
     public static void main(String[] args) {
+        System.out.println("===Tamanhos Teste Grade ===");
         System.out.println(retornoAlgoritmo(tamanhosTesteGrande, codigo1(tamanhosTesteGrande)));
 
-        /* 
-        System.out.println("=".repeat(20));
-        System.out.println(retornoAlgoritmo(tamanhosTesteMedio, codigo1(tamanhosTesteMedio)));
-        System.out.println("=".repeat(20));
-        System.out.println(retornoAlgoritmo(tamanhosTestePequeno, codigo1(tamanhosTestePequeno)));
-        */
+        System.out.println("\n===Tamanhos Teste Medio ===");
+        System.out.println(retornoAlgoritmo(tamanhosTesteMedio, codigo2(tamanhosTesteMedio)));
+
+
+
     }
 }
