@@ -95,6 +95,7 @@ public class App {
         else
             return codigo4(n - 1) + codigo4(n - 2);
     }
+    
 
     /**
      * Gerador de vetores aleatórios de tamanho pré-definido. 
@@ -113,7 +114,7 @@ public class App {
     static String gerarStringDeArray(int[] vetor){
         StringBuilder s = new StringBuilder();
 
-        for (int i = 0; i < vetor.length - 1; i++) {
+        for (int i = 0; i < vetor.length; i++) {
             s.append("\n" + vetor[i]);
         }
 
@@ -121,35 +122,67 @@ public class App {
     }
 
     static String retornoAlgoritmo(int[] tamanhoTeste, int algoritmo){
+
         StringBuilder s = new StringBuilder();
         int[] vetorGerado;
         
-        operacoes = 0;
-        for (int i = 0; i < tamanhoTeste.length - 1; i++) {
+        for (int i = 0; i < tamanhoTeste.length; i++) {
+            operacoes = 0;
             long inicio = System.nanoTime();
-            vetorGerado = gerarVetor(tamanhoTeste[i]); // tamanho grande
+            vetorGerado = gerarVetor(tamanhoTeste[i]); 
             algoritmo = codigo1(vetorGerado);
             long fim = System.nanoTime();
-            double tempo = (fim - inicio);
+            double tempo = (fim - inicio) * nanoToMilli;
 
-            s.append("\n" + "Tamanho: " + tamanhoTeste[i]);
-            s.append("\n" + "Tempo: " + tempo);
-            s.append("\n" + "Quantidade de operações: " + operacoes); // depende do tamanho do vetor
-            s.append("\n" + "-".repeat(10));
+            s.append(String.format(
+                "\nTamanho: %10d | Operações: %15d | Tempo: %.2f", 
+                tamanhoTeste[i],
+                operacoes,
+                tempo
+
+            ));
         }
 
         return s.toString();
 
     }
+
+    static String retornoAlgoritmo(int[] vetor){
+
+        StringBuilder s = new StringBuilder();
+        
+        for (int i = 0; i < vetor.length; i++) {
+            operacoes = 0;
+            long inicio = System.nanoTime();
+            int resultado = codigo4(vetor[i]);
+            long fim = System.nanoTime();
+            double tempo = (fim - inicio) * nanoToMilli;
+
+            s.append(String.format(
+                "\nTamanho: %10d | Operações: %15d | Tempo: %.2f", 
+                vetor[i],
+                operacoes,
+                tempo
+
+            ));
+        }
+
+        return s.toString();
+
+    }
+    
+    
     public static void main(String[] args) {
-        System.out.println("=== Tamanhos Teste Grade | Código 1 ===");
+        System.out.println("=== Tamanho Teste Grade | Código 1 ===");
         System.out.println(retornoAlgoritmo(tamanhosTesteGrande, codigo1(tamanhosTesteGrande)));
 
-        System.out.println("\n=== Tamanhos Teste Grande | Código 2 ===");
+        System.out.println("\n=== Tamanho Teste Grande | Código 2 ===");
         System.out.println(retornoAlgoritmo(tamanhosTesteGrande, codigo2(tamanhosTesteGrande)));
 
-        System.out.println("\n=== Tamanhos Teste Médio | Código 3 ===");
+        System.out.println("\n=== Tamanho Teste Médio | Código 3 ===");
         System.out.println(retornoAlgoritmo(tamanhosTesteMedio, codigo2(tamanhosTesteMedio)));
 
+        System.out.println("\n=== Tamanho Teste Pequeno | Código 4 ===");
+        System.out.println(retornoAlgoritmo(tamanhosTestePequeno));
     }
 }
