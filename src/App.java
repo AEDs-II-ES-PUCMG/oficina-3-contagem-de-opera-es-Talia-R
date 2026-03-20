@@ -1,4 +1,6 @@
 import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /** 
  * MIT License
@@ -121,22 +123,28 @@ public class App {
         return s.toString();
     }
 
-    static String retornoAlgoritmo(int[] tamanhoTeste, int algoritmo){
+    /**
+     * Executa um vetor para o algoritmo indicado.
+     * @param tamanhos vetor com os tamanhos a serem utilizados no algoritmo.
+     * @param algoritmo algoritmo que quer utilizar
+     * @return
+     */
+    static String retornoAlgoritmo(int[] tamanhos, Consumer<int[]> algoritmo){
 
         StringBuilder s = new StringBuilder();
         int[] vetorGerado;
         
-        for (int i = 0; i < tamanhoTeste.length; i++) {
+        for (int i = 0; i < tamanhos.length; i++) {
             operacoes = 0;
             long inicio = System.nanoTime();
-            vetorGerado = gerarVetor(tamanhoTeste[i]); 
-            algoritmo = codigo1(vetorGerado);
+            vetorGerado = gerarVetor(tamanhos[i]); 
+            algoritmo.accept(vetorGerado);
             long fim = System.nanoTime();
             double tempo = (fim - inicio) * nanoToMilli;
 
             s.append(String.format(
                 "\nTamanho: %10d | Operações: %15d | Tempo: %.2f", 
-                tamanhoTeste[i],
+                tamanhos[i],
                 operacoes,
                 tempo
 
@@ -154,7 +162,7 @@ public class App {
         for (int i = 0; i < vetor.length; i++) {
             operacoes = 0;
             long inicio = System.nanoTime();
-            int resultado = codigo4(vetor[i]);
+            codigo4(vetor[i]);
             long fim = System.nanoTime();
             double tempo = (fim - inicio) * nanoToMilli;
 
@@ -166,23 +174,20 @@ public class App {
 
             ));
         }
-
         return s.toString();
-
     }
     
-    
     public static void main(String[] args) {
-        System.out.println("=== Tamanho Teste Grade | Código 1 ===");
-        System.out.println(retornoAlgoritmo(tamanhosTesteGrande, codigo1(tamanhosTesteGrande)));
+        System.out.println("=== Teste Grande | Código 1 ===");
+        System.out.println(retornoAlgoritmo(tamanhosTesteGrande, App::codigo1));
 
-        System.out.println("\n=== Tamanho Teste Grande | Código 2 ===");
-        System.out.println(retornoAlgoritmo(tamanhosTesteGrande, codigo2(tamanhosTesteGrande)));
+        System.out.println("\n=== Teste Grande | Código 2 ===");
+        System.out.println(retornoAlgoritmo(tamanhosTesteGrande, App::codigo2));
 
-        System.out.println("\n=== Tamanho Teste Médio | Código 3 ===");
-        System.out.println(retornoAlgoritmo(tamanhosTesteMedio, codigo2(tamanhosTesteMedio)));
+        System.out.println("\n=== Teste Médio | Código 3 ===");
+        System.out.println(retornoAlgoritmo(tamanhosTesteMedio, App::codigo3));
 
-        System.out.println("\n=== Tamanho Teste Pequeno | Código 4 ===");
+        System.out.println("\n=== Teste Pequeno | Código 4 ===");
         System.out.println(retornoAlgoritmo(tamanhosTestePequeno));
     }
 }
