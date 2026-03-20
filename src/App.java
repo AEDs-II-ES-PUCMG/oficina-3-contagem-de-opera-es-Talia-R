@@ -113,21 +113,16 @@ public class App {
         
     }
 
-    static String gerarStringDeArray(int[] vetor){
-        StringBuilder s = new StringBuilder();
-
-        for (int i = 0; i < vetor.length; i++) {
-            s.append("\n" + vetor[i]);
-        }
-
-        return s.toString();
-    }
-
     /**
      * Executa um vetor para o algoritmo indicado.
      * @param tamanhos vetor com os tamanhos a serem utilizados no algoritmo.
      * @param algoritmo algoritmo que quer utilizar
-     * @return
+     * @return String na formatação
+     *          <ul>
+     *          <li>Tamanho:    xxxx</li>
+     *          <li>Operações:  xxxx</li>
+     *          <li>Tempo:      xxxx</li>
+     *          </ul>
      */
     static String retornoAlgoritmo(int[] tamanhos, Consumer<int[]> algoritmo){
 
@@ -136,10 +131,12 @@ public class App {
         
         for (int i = 0; i < tamanhos.length; i++) {
             operacoes = 0;
-            long inicio = System.nanoTime();
             vetorGerado = gerarVetor(tamanhos[i]); 
+
+            long inicio = System.nanoTime();
             algoritmo.accept(vetorGerado);
             long fim = System.nanoTime();
+
             double tempo = (fim - inicio) * nanoToMilli;
 
             s.append(String.format(
@@ -155,20 +152,33 @@ public class App {
 
     }
 
-    static String retornoAlgoritmo(int[] vetor){
+    /**
+     * Executa um vetor para o algoritmo indicado.
+     * @param tamanhos vetor com os tamanhos a serem utilizados no algoritmo.
+     * @param algoritmo algoritmo que quer utilizar
+     * @return String na formatação
+     *          <ul>
+     *          <li>Tamanho:    xxxx</li>
+     *          <li>Operações:  xxxx</li>
+     *          <li>Tempo:      xxxx</li>
+     *          </ul>
+     */
+    static String retornoAlgoritmo(int[] tamanhos){
 
         StringBuilder s = new StringBuilder();
         
-        for (int i = 0; i < vetor.length; i++) {
+        for (int i = 0; i < tamanhos.length; i++) {
             operacoes = 0;
+
             long inicio = System.nanoTime();
-            codigo4(vetor[i]);
+            codigo4(tamanhos[i]);
             long fim = System.nanoTime();
+
             double tempo = (fim - inicio) * nanoToMilli;
 
             s.append(String.format(
                 "\nTamanho: %10d | Operações: %15d | Tempo: %.2f", 
-                vetor[i],
+                tamanhos[i],
                 operacoes,
                 tempo
 
