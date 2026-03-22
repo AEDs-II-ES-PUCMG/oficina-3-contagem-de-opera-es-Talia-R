@@ -140,7 +140,7 @@ public class App {
             double tempo = (fim - inicio) * nanoToMilli;
 
             s.append(String.format(
-                "\nTamanho: %10d | Operações: %15d | Tempo: %.2f", 
+                "\nTamanho: %10d | Operações: %15d | Tempo: %10.2f ms", 
                 tamanhos[i],
                 operacoes,
                 tempo
@@ -177,7 +177,7 @@ public class App {
             double tempo = (fim - inicio) * nanoToMilli;
 
             s.append(String.format(
-                "\nTamanho: %10d | Operações: %15d | Tempo: %.2f", 
+                "\nTamanho: %10d | Operações: %15d | Tempo: %10.2f ms", 
                 tamanhos[i],
                 operacoes,
                 tempo
